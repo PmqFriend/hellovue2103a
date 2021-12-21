@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+  <style>
+    form{
+      margin-left: 200px;
+    }
+  </style>
+  <script language="JavaScript">
+    $(function () {
+      $("input[value=添加]").click(function () {
+        location.href="/user/toAdd";
+      });
+    });
+  </script>
+
+
+
+</head>
+<body>
+<form th:action="@{/user/findAll}">
+  <!--查询区域-->
+  <input th:type="hidden" th:value="1" th:name="pageNum"/>
+  名字：<input th:type="text" th:value="${name}" th:name="name"/>
+  <input th:type="submit" th:value="查询"/>&nbsp;<input th:type="button" th:value="添加"/>
+  <!--列表-->
+  <table th:border="1" th:cellpadding="0" th:cellspacing="0" th:width="1000px">
+    <tr>
+      <th>序号</th>
+      <th>名字</th>
+      <th>照片</th>
+      <th>日期</th>
+      <th>电话</th>
+      <th>地址</th>
+      <th>操作</th>
+    </tr>
+    <!--            <tr th:each="user:${pageInfo.list}">-->
+    <!--                <td th:text="${userStat.index+1}"></td>-->
+    <!--                <td th:text="${user.uname}"></td>-->
+    <!--&lt;!&ndash;                <td ><img th:src="@{'C:\Users\jerry\AppData\Local\Temp\tomcat-docbase.4687807341525390050.8080\'+${user.photo}}"/></td>&ndash;&gt;-->
+    <!--                <td ><img style="width: 80px;height: 80px" th:src="@{'/'+${user.photo}}"/></td>-->
+    <!--                <td th:text="${#dates.format(user.createdate,'yyyy-MM-dd HH:mm:ss')}"></td>-->
+    <!--                <td th:text="${user.phone}"></td>-->
+    <!--                <td th:text="${user.address}"></td>-->
+    <!--                <td> 删除  修改</td>-->
+    <!--            </tr>-->
+  </table><br/>
+  <!--        当前页:<span th:text="${pageInfo.pageNum}"></span>-->
+  <!--        总页数:<span th:text="${pageInfo.pages}"></span>-->
+  <!--        总条数:<span th:text="${pageInfo.total}"></span>-->
+
+  <!--        <input th:type="button" th:value="首页" th:onclick="|jump(${pageInfo.firstPage})|">-->
+  <!--        <input th:type="button" th:value="上一页" th:onclick="|jump(${pageInfo.prePage})|">-->
+  <!--        <input th:type="button" th:value="下一页" th:onclick="|jump(${pageInfo.nextPage})|">-->
+  <!--        <input th:type="button" th:value="尾页" th:onclick="|jump(${pageInfo.lastPage})|">-->
+</form>
+<script language="JavaScript">
+  function jump(pageNum){
+    if(pageNum < 1){
+      pageNum = 1
+    }
+    if(pageNum > "${pageInfo.pages}"){
+      pageNum = "${pageInfo.pages}";
+    }
+    $("input[name=pageNum]").val(pageNum);//设置页面到隐藏域
+
+    $("form").submit();
+  }
+</script>
+</body>
+</html>
